@@ -11,7 +11,6 @@ import {
 import {FormDialog} from '../../widgets/forma';
 import {MobileSubscribe} from '../../widgets/mobile-subscribe';
 
-
 import { Context as AnaliticsContext } from '../../project/analitics';
 
 const useStyle = makeStyles((theme) => ({
@@ -21,7 +20,7 @@ const useStyle = makeStyles((theme) => ({
     right: '37vw',
     top: -24,
     transform: 'rotate(25deg)',
-    zIndex: 2222222
+    zIndex: 222
   },
   fotoBlock: {
     backgroundPosition: '26% 15%',

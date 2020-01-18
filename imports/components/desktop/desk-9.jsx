@@ -63,7 +63,7 @@ export const DesktopNine = () => {
             <Grid item md={5}>
               <img src={test} alt='пройти тест получить ссылку от Fulogy'style={{width: '100%', borderRadius: 5}} />
             </Grid>
-            <Grid item md={6} style={{paddingLeft: 32}}>
+            <Grid item md={6} style={{paddingLeft: 16}}>
               <div>
                 <Typography variant="h3" component='h2'>Пройдите опрос</Typography>
                 <Typography variant='body1' component='div' gutterBottom>
@@ -78,7 +78,7 @@ export const DesktopNine = () => {
               </div>
             </Grid>
           </Grid>
-          <img src={woman} style={{position: 'absolute', right: -85, bottom: 0, width: 180}} />
+          <img src={woman} style={{position: 'absolute', right: -74, bottom: 0, width: 145}} />
         </Grid>
         <Typography variant='h1' component='span' style={{
           color: '#FBF0F0',

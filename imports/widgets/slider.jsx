@@ -21,7 +21,7 @@ const MySlider = withStyles({
   },
   active: {},
   valueLabel: {
-    top: 30,
+    top: -32,
     '& *': {
     background: 'transparent',
     color: '#000',
@@ -37,10 +37,36 @@ const MySlider = withStyles({
   },
 })(Slider);
 
+const useStyle = makeStyles(theme => ({
+  labelLeft: {
+    position: 'absolute', 
+    left: -42, 
+    top: 10, 
+    fontSize: 14, 
+    color: '#757272',
+    '@media(max-width: 335px)': {
+      left: -28,
+      fontSize: 12
+    }
+  },
+  labelRight: {
+    position: 'absolute', 
+    right: -42, 
+    top: 10, 
+    fontSize: 14, 
+    color: '#757272',
+    '@media(max-width: 335px)': {
+      right: -28,
+      fontSize: 12
+    }
+  }
+}))
+
   export const CalcSlider = ({ value, setValue }) => {
+    const classes = useStyle();
     return <div style={{position:'relative'}}>
-      <div style={{position: 'absolute', left: -42, top: 10, fontSize: 14, color: '#dcdcdc'}}>0.5м</div>
-      <div style={{position: 'absolute', right: -42, top: 10, fontSize: 14, color: '#dcdcdc'}}>7м</div>
+      <div className={classes.labelLeft}>0.5м</div>
+      <div className={classes.labelRight}>7м</div>
       <MySlider 
         aria-label="my-slider" 
         defaultValue={3.4} 

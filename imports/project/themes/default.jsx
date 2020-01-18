@@ -65,12 +65,12 @@ export const defaultTheme = createMuiTheme({
         fontWeight: 500,
       },
       '@media(max-width: 340px)': {
-        fontSize: 20,
+        fontSize: 24,
       }
     },
     h2: {
       letterSpacing: '0.05em',
-      fontSize: 20,
+      fontSize: 22,
       fontWeight: 700,
       lineHeight: 1.3,
       fontFamily: fontFamily,
@@ -81,7 +81,7 @@ export const defaultTheme = createMuiTheme({
       letterSpacing: '0.07em',
       fontFamily: fontFamily,
       fontWeight: 700,
-      fontSize: 18,
+      fontSize: 20,
       color: fontMainColor,
     },
     h4: {
@@ -124,7 +124,7 @@ export const defaultTheme = createMuiTheme({
     body1: {
       lineHeight: 1.4,
       fontFamily: fontFamily,
-      fontSize: 16,
+      fontSize: 18,
       fontWeight: 300,
       color: fontMainColor,
       [th.breakpoints.up('md')]: {
@@ -134,7 +134,7 @@ export const defaultTheme = createMuiTheme({
     body2: {
       lineHeight: 1.4,
       fontFamily: fontFamily,
-      fontSize: 14,
+      fontSize: 16,
       fontWeight: 500,
       color: fontMainColor
     },
@@ -152,7 +152,7 @@ export const defaultTheme = createMuiTheme({
           backgroundColor: '#e0ded0',
         },
         '&:hover': {
-          boxShadow: '0 15px 5px 0 rgba(0, 0, 0, 0.2)',
+          boxShadow: '0 3px 5px 0 rgba(26, 26, 26, 0.2)',
           backgroundColor: fontSecondaryColor,
           transition: 'all 1s ease',
         },
@@ -168,7 +168,7 @@ export const defaultTheme = createMuiTheme({
       containedSecondary: {
         '&:hover': {
           backgroundColor: fontSecondaryColor,
-          boxShadow: '0 15px 5px 0 rgba(0, 0, 0, 0.2)',
+          boxShadow: '0 3px 5px 0 rgba(26, 26, 26, 0.2)',
         },
         color: '#fff'
       },
@@ -265,6 +265,21 @@ export const defaultTheme = createMuiTheme({
         borderColor: fontMainColor,
       },
       
-    },    
+    }, 
+    MuiInput: {
+      underline: {
+        '&:after': {
+          borderBottom: '1px solid #f36767'
+        },
+        '&.Mui-error:after': {
+          borderBottomColor: '#969696'
+        }
+      }, 
+    },
+    MuiFormControl: {
+      marginDense: {
+        marginTop: 2
+      }
+    }
   },
 });

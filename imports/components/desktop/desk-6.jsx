@@ -6,7 +6,6 @@ import {
   Typography,
 } from '@material-ui/core';
 
-import {Circle} from '../../widgets/circle';
 import {ContainedButton} from '../../widgets/small-elements';
 
 
@@ -36,7 +35,7 @@ const useStyle = makeStyles((theme) => ({
   },
 }))
 
-const installation = require('../../../images/Photo-13.jpg?resize&size=600');
+const installation = require('../../../images/Photo-8.jpg?resize&size=600');
 const arrow = require('../../../public/images/icon/arrow.svg');
 const arrow2 = require('../../../public/images/icon/arrow-left.svg');
 

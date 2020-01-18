@@ -24,7 +24,7 @@ const useStyle = makeStyles((theme) => ({
   },
 }))
 
-const installation = require('../../../images/Photo-13.jpg?resize&size=600');
+const installation = require('../../../images/Photo-8.jpg?resize&size=600');
 const arrow = require('../../../public/images/icon/arrow.svg');
 const arrow2 = require('../../../public/images/icon/arrow-left.svg');
 
@@ -45,7 +45,7 @@ export const MobileSix = () => {
         </Grid>
         <Grid item style={{position: 'relative'}}>
           <div style={{position: 'relative'}}>
-            <Typography variant='h1' component='div' align='center' color='secondary'>1</Typography>
+            <Typography variant='h1' component='div' style={{fontSize: 28}} align='center' color='secondary'>1</Typography>
             <Typography variant="h3" component='h2' align='center' gutterBottom>Уникальные качества<br />светильника</Typography>
             <Typography variant='body1' component='p' paragraph>
               <span style={{color: '#f35454'}}>Яркий</span> качественный и естественный свет «без точек», что создает комфортные 
@@ -56,7 +56,7 @@ export const MobileSix = () => {
             </Typography>
           </div>
           <div>
-            <Typography variant='h1' component='div' align='center' style={{color: '#1a1a1a'}}>2</Typography>
+            <Typography variant='h1' component='div' style={{fontSize: 28}} align='center' style={{color: '#1a1a1a'}}>2</Typography>
             <Typography variant="h3" component='h2' gutterBottom align='center'>Собственное производство</Typography>
             <Typography variant='body1' component='p' paragraph>
               Собственная разработка изделий и комплектующих, позволяет нам гарантировать максимальную согласованность комплектующих между 
@@ -64,17 +64,19 @@ export const MobileSix = () => {
             </Typography>
           </div>
           <div>
-            <Typography variant='h1' component='div' align='center' color='secondary'>3</Typography>
+            <Typography variant='h1' component='div' style={{fontSize: 28}} align='center' color='secondary'>3</Typography>
             <Typography variant="h3" component='h2' align='center' gutterBottom>Индивидуальное исполнение</Typography>
             <Typography variant='body1' component='p' gutterBottom>
               Изготовим для Вас светильник на заказ по индивидуальным размерам, 
               вплоть до <span style={{color: '#f35454'}}>миллиметра</span> без видимых стыков 
               (соединений) и точно в срок. <b>Выполним монтаж.</b>
             </Typography>
-            <img src={installation} alt='кухня до Fulogy' style={{width: '100%', borderRadius: 10}} />
+            <div>
+              <img src={installation} alt='кухня до Fulogy' style={{width: '100%', borderRadius: 10}} />
+            </div>
           </div>
-          <div>
-            <Typography variant='h1' component='div' align='center' style={{color: '#1a1a1a'}}>4</Typography>
+          <div style={{marginTop: 36}}>
+            <Typography variant='h1' component='div' style={{fontSize: 28}} align='center' style={{color: '#1a1a1a'}}>4</Typography>
             <Typography variant="h3" component='h2' gutterBottom align='center'>Гарантия</Typography>
             <Typography variant='body1' component='p' gutterBottom>
               Мы даем письменную гарантию качества на светильник сроком на 5 лет и гарантию на монтажные 
@@ -85,7 +87,7 @@ export const MobileSix = () => {
             </Typography>
           </div>
           <div style={{position: 'relative'}}>
-            <Typography variant='h1' component='div' align='center' color='secondary'>5</Typography>
+            <Typography variant='h1' component='div' style={{fontSize: 28}} align='center' color='secondary'>5</Typography>
             <Typography variant="h3" component='h2' align='center' gutterBottom>Цена производителя</Typography>
             <Typography variant='body1' component='p' gutterBottom>
               Поскольку светильник, это наша собственная разработка, Вы не переплачиваете посредникам. 
@@ -97,7 +99,7 @@ export const MobileSix = () => {
             <img src={arrow2} alt='стрелочка' className={classes.arrowStyles} />
           </div>
           <div>
-            <Typography variant='h1' component='div' align='center' style={{color: '#1a1a1a'}}>6</Typography>
+            <Typography variant='h1' component='div' style={{fontSize: 28}} align='center' style={{color: '#1a1a1a'}}>6</Typography>
             <Typography variant="h3" component='h2' align='center' gutterBottom>Гарантийное обслуживание</Typography>
             <Typography variant='body1' component='p' paragraph>
               Мы выполняем для своих заказчиков гарантийное, а также постгарантийное 
@@ -105,7 +107,7 @@ export const MobileSix = () => {
             </Typography>
           </div>
           <div style={{position: 'relative'}}>
-            <Typography variant='h1' component='div' align='center' color='secondary'>7</Typography>
+            <Typography variant='h1' component='div' style={{fontSize: 28}} align='center' color='secondary'>7</Typography>
             <Typography variant="h3" component='h2' align='center' gutterBottom>Доставка</Typography>
             <Typography variant='body1' component='p' paragraph>
               Осуществляем быструю доставку изделий по всей России.

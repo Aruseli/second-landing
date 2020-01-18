@@ -1,31 +1,16 @@
-import React, {useState, useContext} from 'react';
-
-import {
-  Grid,
-  makeStyles,
-  Typography,
-  Paper,
-  Divider,
-  Checkbox,
-  FormControlLabel,
-  FormControl,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  Radio
-} from '@material-ui/core';
-
-import {
-  ContainedButton
-} from '../../widgets/small-elements';
-import {OpenedBlock} from '../../widgets/opened-block';
+import { Divider, FormControl, FormControlLabel, Grid, List, ListItem, ListItemText, makeStyles, Paper, Radio, Typography } from '@material-ui/core';
 
 import cn from 'classnames';
 
+import React, { useContext, useState } from 'react';
+
 import { Context as AnaliticsContext } from '../../project/analitics';
+
 import { CalcSlider } from '../../widgets/slider';
-import { CheckBoxOutlineBlank } from '@material-ui/icons';
+import { ContainedButton } from '../../widgets/small-elements';
+import { FormDialog } from '../../widgets/forma';
+import { meta } from '../desktop/desk-4';
+
 
 const useStyle = makeStyles((theme) => ({
   root: {
@@ -45,7 +30,9 @@ const useStyle = makeStyles((theme) => ({
     padding: theme.spacing(4, 0),
     borderRadius: 10,
     border: '1px solid #f3f3f3',
-    marginTop: 72,
+    marginTop: 64,
+    marginLeft: 16,
+    marginRight: 16,
     '@media(min-width: 694px)': {
       width: 'calc(100% - 32px)',
       margin: '0 auto'
@@ -56,10 +43,11 @@ const useStyle = makeStyles((theme) => ({
   },
   grayBlock: {
     backgroundColor: '#f4f4f4',
-    padding: theme.spacing(4),
+    padding: theme.spacing(2),
     borderRadius: 10,
-    minHeight: 283
-  },
+    '@media(min-width: 694px)': {
+      minHeight: 267
+  }},
   lightCheck: {
     width: 84,
     height: 84,
@@ -111,23 +99,29 @@ const CONSTS = {
 
 export const MobileFour = () => {
   const classes = useStyle();
+  const { trigger } = useContext(AnaliticsContext);
+  const [dialogOpenCalc, setDialogOpenCalc] = useState(false);
 
   const [length, setLength] = useState(3.4);
-  const [help1, setHelp1] = useState(false);
-  const [help2, setHelp2] = useState(false);
-  const [help3, setHelp3] = useState(false);
   const [type, setType] = useState(0);
   const [klass, setKlass] = useState(0);
   const [color, setColor] = useState(0);
+
+  const price = Math.ceil(CONSTS[klass].init + (length * CONSTS[klass].cost));
+
+  const onClickCalc = () => {
+    setDialogOpenCalc(!dialogOpenCalc);
+    trigger('clacResp');
+  }
 
   return (<div className={classes.root}>
     <Grid container justify='center' alignItems='center'> 
       <Grid item md={6} style={{position: 'relative'}}>
         <img src={arrow} alt='стрелочка' className={classes.arrowStyles} />
-        <Typography variant="h1" component='h2' align='center'>
+        <Typography variant="h1" component='h2' align='center' style={{padding: '0 10px'}}>
           Чтобы узнать стоимость светильника, 
         </Typography>
-        <Typography variant="body1" component='div' gutterBottom align='center'>
+        <Typography variant="body1" component='div' gutterBottom align='center' style={{padding: '0 10px'}}>
           подходящего к Вашему дизайну, 
           воспользуйтесь конструктором расчета стоимости:
         </Typography>
@@ -144,74 +138,77 @@ export const MobileFour = () => {
           }}>
             <Paper className={classes.paperStyles} square elevation={4}>
               <div style={{marginBottom: 48}}>
-                <Typography variant="body1" component='h2' gutterBottom style={{color: '#252048', textTransform: 'none', fontWeight: 500}}>
+                <Typography variant="body1" component='h2' gutterBottom style={{color: '#252048', textTransform: 'none', fontWeight: 500, padding: '0 10px'}}>
                   Чтобы узнать приблизительную<br />стоимость Вашего светильника, <span style={{color: '#f35454'}}>выберите его длину:</span>
                 </Typography>
-                <div style={{minWidth: 210, maxWidth: 500, width: 220, margin: '0 auto'}}>
+                <div style={{minWidth: 200, maxWidth: 500, width: 220, margin: '0 auto', paddingTop: 32}}>
                   <CalcSlider value={length} setValue={setLength}/>
                 </div>
               </div>
               <Divider />
-              <div style={{marginTop: 48, marginBottom: 48, padding: '0 64px'}}>
+              <div style={{marginTop: 48, marginBottom: 48}}>
                 <Typography variant="body1" component='h2' gutterBottom style={{color: '#252048', textTransform: 'none', fontWeight: 500}}>
                   Выберите <span style={{color: '#f35454'}}>тип планировки</span> кухни:
                 </Typography>
                 <Grid container justify='center' alignItems='center' spacing={8}>
-                  <Grid item>
-                    <div>
-                      <FormControl>
-                        <FormControlLabel control={
-                          <Radio color="secondary" disableRipple checked={type === 0} onChange={() => setType(0)}/>}
-                          label="Прямая"
-                          labelPlacement="end"    
-                        />
-                      </FormControl>
-                    </div>
-                    <div>
-                      <img src={straight} alt='прямой тип планировки кухни' />
-                    </div>
-                  </Grid>
-                  <Grid item>
-                    <div>
-                      <FormControl>
-                        <FormControlLabel control={
-                          <Radio color="secondary" disableRipple checked={type === 1} onChange={() => setType(1)}/>}
-                          label="Г-образная"
-                          labelPlacement="end"    
-                        />
-                      </FormControl>
-                    </div>
-                    <div>
-                      <img src={gShape} alt='прямой тип планировки кухни' />
+                  <Grid item xs={12}>
+                    <div style={{display: 'flex', justifyContent: 'space-evenly', alignItems: 'center'}}>
+                      <div>
+                        <img src={straight} alt='прямой тип планировки кухни' />
+                      </div>
+                      <div>
+                        <FormControl>
+                          <FormControlLabel control={
+                            <Radio color="secondary" disableRipple checked={type === 0} onChange={() => setType(0)}/>}
+                            label="Прямая"
+                            labelPlacement="end"    
+                          />
+                        </FormControl>
+                      </div>
                     </div>
                   </Grid>
-                  <Grid item>
-                    <div>
-                      <FormControl>
-                        <FormControlLabel control={
-                          <Radio color="secondary" disableRipple checked={type === 2} onChange={() => setType(2)}/>}
-                          label="П-образная"
-                          labelPlacement="end"    
-                        />
-                      </FormControl>
-                    </div>
-                    <div>
-                      <img src={pShape} alt='прямой тип планировки кухни' />
+                  <Grid item xs={12}>
+                    <div style={{display: 'flex', justifyContent: 'space-evenly', alignItems: 'center'}}>
+                      <div>
+                        <img src={gShape} alt='прямой тип планировки кухни' />
+                      </div>
+                      <div>
+                        <FormControl>
+                          <FormControlLabel control={
+                            <Radio color="secondary" disableRipple checked={type === 1} onChange={() => setType(1)}/>}
+                            label="Г-образная"
+                            labelPlacement="end"    
+                          />
+                        </FormControl>
+                      </div>
                     </div>
                   </Grid>
-                  <Grid item>
+                  <Grid item xs={12}>
+                    <div style={{display: 'flex', justifyContent: 'space-evenly', alignItems: 'center'}}>                    
+                      <div>
+                        <img src={pShape} alt='прямой тип планировки кухни' />
+                      </div>
+                      <div>
+                        <FormControl>
+                          <FormControlLabel control={
+                            <Radio color="secondary" disableRipple checked={type === 2} onChange={() => setType(2)}/>}
+                            label="П-образная"
+                            labelPlacement="end"    
+                          />
+                        </FormControl>
+                      </div>
+                    </div>
+                  </Grid>
+                  <Grid item xs={12} className={classes.paddingOnXsScreen}>
                     <div>
                       <FormControl>
                         <FormControlLabel control={
-                          <Checkbox
-                            disableRipple
-                            icon={<img src={tick} alt='checkbox' className={classes.tickIcon} />}
-                            checkedIcon={<img src={tickChecked} alt='checkbox' className={classes.tickIcon}
-                            checked={help1} onChange={(e, ch) => setHelp1(ch)} />}  
-                          />}
-                          label={<>Нужен совет 1<br />специалиста</>}
-                          labelPlacement="bottom"    
-                        />
+                          <Radio color="secondary" disableRipple 
+                            checked={type === 3} 
+                            onChange={() => setType(3)}/>}
+                            label={<>Нужен совет<br />специалиста</>}
+                            labelPlacement="bottom"    
+                          />
                       </FormControl>
                     </div>
                     <div style={{marginTop: 40}}>
@@ -226,7 +223,7 @@ export const MobileFour = () => {
                   Выберите <span style={{color: '#f35454'}}>класс</span> светильника:
                 </Typography>
                 <Grid container justify='center' alignItems='stretch'>
-                  <Grid item>
+                  <Grid item xs={12} sm={6}>
                     <div>
                       <FormControl>
                         <FormControlLabel control={
@@ -238,42 +235,42 @@ export const MobileFour = () => {
                     </div>
                     <div className={classes.grayBlock}>
                       <List dense>
-                        <ListItem>
+                        <ListItem style={{padding: '0 16px'}}>
                           <ListItemText primary={
                             <Typography variant='body2' component='span'>
                               &#8210;&ensp;Полностью готовый к установке<br />светильник
                             </Typography>
                           } />
                         </ListItem>
-                        <ListItem>
+                        <ListItem style={{padding: '0 16px'}}>
                           <ListItemText primary={
                             <Typography variant='body2' component='span'>
                               &#8210;&ensp;Профиль FULOGY
                             </Typography>
                           } />
                         </ListItem>
-                        <ListItem>
+                        <ListItem style={{padding: '0 16px'}}>
                           <ListItemText primary={
                             <Typography variant='body2' component='span'>
                               &#8210;&ensp;Лента PRO 140LED/m, 18 W/m,<br />CRI>90, яркость 2000Lm/m
                             </Typography>
                           } />
                         </ListItem>
-                        <ListItem>
+                        <ListItem style={{padding: '0 16px'}}>
                           <ListItemText primary={
                             <Typography variant='body2' component='span'>
                               &#8210;&ensp;Наличие техподдержки
                             </Typography>
                           } />
                         </ListItem>
-                        <ListItem>
+                        <ListItem style={{padding: '0 16px'}}>
                           <ListItemText primary={
                             <Typography variant='body2' component='span'>
                               &#8210;&ensp;Возможен монтаж «под ключ»
                             </Typography>
                           } />
                         </ListItem>
-                        <ListItem>
+                        <ListItem style={{padding: '0 16px'}}>
                           <ListItemText primary={
                             <Typography variant='body2' component='span'>
                               &#8210;&ensp;Гарантия 3 года
@@ -283,7 +280,7 @@ export const MobileFour = () => {
                       </List>
                     </div>
                   </Grid>
-                  <Grid item className={classes.paddingOnXsScreen}>
+                  <Grid item xs={12} sm={6} className={classes.paddingOnXsScreen}>
                     <div>
                       <FormControl>
                         <FormControlLabel 
@@ -296,42 +293,42 @@ export const MobileFour = () => {
                     </div>
                     <div className={classes.grayBlock}>
                       <List dense>
-                        <ListItem>
+                        <ListItem style={{padding: '0 16px'}}>
                           <ListItemText primary={
                             <Typography variant='body2' component='span'>
                               &#8210;&ensp;Полностью готовый к установке<br />светильник
                             </Typography>
                           } />
                         </ListItem>
-                        <ListItem>
+                        <ListItem style={{padding: '0 16px'}}>
                           <ListItemText primary={
                             <Typography variant='body2' component='span'>
                               &#8210;&ensp;Профиль FULOGY<br /><span style={{color: '#f35454'}}>серый, черный, белый, золотой</span>
                             </Typography>
                           } />
                         </ListItem>
-                        <ListItem>
+                        <ListItem style={{padding: '0 16px'}}>
                           <ListItemText primary={
                             <Typography variant='body2' component='span'>
                               &#8210;&ensp;Лента LUX 168LED/m, 24 W/m,<br />CRI>95, яркость 2000Lm/m
                             </Typography>
                           } />
                         </ListItem>
-                        <ListItem>
+                        <ListItem style={{padding: '0 16px'}}>
                           <ListItemText primary={
                             <Typography variant='body2' component='span'>
                               &#8210;&ensp;Наличие техподдержки
                             </Typography>
                           } />
                         </ListItem>
-                        <ListItem>
+                        <ListItem style={{padding: '0 16px'}}>
                           <ListItemText primary={
                             <Typography variant='body2' component='span'>
                               &#8210;&ensp;Возможен монтаж «под ключ»
                             </Typography>
                           } />
                         </ListItem>
-                        <ListItem>
+                        <ListItem style={{padding: '0 16px'}}>
                           <ListItemText primary={
                             <Typography variant='body2' component='span'>
                               &#8210;&ensp;Гарантия 5 года
@@ -341,18 +338,13 @@ export const MobileFour = () => {
                       </List>
                     </div>
                   </Grid>
-                  <Grid item>
+                  <Grid item xs={12} className={classes.paddingOnXsScreen}>
                     <div>
                       <FormControl>
                         <FormControlLabel control={
-                          <Checkbox
-                            disableRipple
-                            icon={<img src={tick} alt='checkbox' className={classes.tickIcon} />}
-                            checkedIcon={<img src={tickChecked} alt='checkbox' className={classes.tickIcon} 
-                            checked={help2} onChange={(e, ch) => setHelp2(ch)}/>}  
-                          />}
-                          label={<>Нужен совет 2<br />специалиста</>}
-                          labelPlacement="bottom"    
+                          <Radio color="secondary" disableRipple checked={klass === 2} onChange={() => setKlass(2)}/>}
+                            label={<>Нужен совет<br />специалиста</>}
+                            labelPlacement="bottom"   
                         />
                       </FormControl>
                     </div>
@@ -363,80 +355,83 @@ export const MobileFour = () => {
                 </Grid>
               </div>
               <Divider />
-              <div style={{marginTop: 48, marginBottom: 48, padding: '0 64px'}}>
+              <div style={{marginTop: 48, marginBottom: 48, padding: '0 24px'}}>
                 <Typography variant="body1" component='h2' gutterBottom style={{color: '#252048', textTransform: 'none', fontWeight: 500}}>
                   Выберите <span style={{color: '#f35454'}}>цвет</span> корпуса светильника:
                 </Typography>
-                <Grid container justify='center' alignItems='center' spacing={8}>
-                  <Grid item>
-                    <div>
-                      <FormControl>
-                        <FormControlLabel control={
-                          <Radio color="secondary" disableRipple checked={color === 0} onChange={() => setColor(0)}/>}
-                          label="Серый"
-                          labelPlacement="end"    
-                        />
-                      </FormControl>
-                    </div>
-                    <div className={cn(classes.lightCheck, { [classes.lightCheckActive]: color === 0 })}>
-                      <img src={graylight} alt='серый светильник' className={classes.imageLight} />
-                    </div>
-                  </Grid>
-                  <Grid item>
-                    <div>
-                      <FormControl>
-                        <FormControlLabel control={
-                          <Radio color="secondary" disableRipple checked={color === 1} onChange={() => setColor(1)}/>}
-                          label="Черный"
-                          labelPlacement="end"    
-                        />
-                      </FormControl>
-                    </div>
-                    <div className={cn(classes.lightCheck, { [classes.lightCheckActive]: color === 1 })}>
-                      <img src={blacklight} alt='черный светильник' className={classes.imageLight} />
+                <Grid container justify='center' alignItems='center'>
+                  <Grid item xs={12}>
+                    <div style={{display: 'flex', justifyContent: 'space-evenly', alignItems: 'center'}}>
+                      <div className={cn(classes.lightCheck, { [classes.lightCheckActive]: color === 0 })}>
+                        <img src={graylight} alt='серый светильник' className={classes.imageLight} />
+                      </div>
+                      <div>
+                        <FormControl>
+                          <FormControlLabel control={
+                            <Radio color="secondary" disableRipple checked={color === 0} onChange={() => setColor(0)}/>}
+                            label="Серый"
+                            labelPlacement="end"    
+                          />
+                        </FormControl>
+                      </div>
                     </div>
                   </Grid>
-                  <Grid item>
-                    <div>
-                      <FormControl>
-                        <FormControlLabel control={
-                          <Radio color="secondary" disableRipple checked={color === 2} onChange={() => setColor(2)}/>}
-                          label="Белый"
-                          labelPlacement="end"    
-                        />
-                      </FormControl>
-                    </div>
-                    <div className={cn(classes.lightCheck, { [classes.lightCheckActive]: color === 2 })}>
-                      <img src={whitelight} alt='белый светильник' className={classes.imageLight} />
-                    </div>
-                  </Grid>
-                  <Grid item>
-                    <div>
-                      <FormControl>
-                        <FormControlLabel control={
-                          <Radio color="secondary" disableRipple checked={color === 3} onChange={() => setColor(3)}/>}
-                          label="Золотой"
-                          labelPlacement="end"    
-                        />
-                      </FormControl>
-                    </div>
-                    <div className={cn(classes.lightCheck, { [classes.lightCheckActive]: color === 3 })}>
-                      <img src={goldlight} alt='золотой светильник' className={classes.imageLight} />
+                  <Grid item xs={12}>
+                    <div style={{display: 'flex', justifyContent: 'space-evenly', alignItems: 'center'}}>
+                      <div className={cn(classes.lightCheck, { [classes.lightCheckActive]: color === 1 })}>
+                        <img src={blacklight} alt='черный светильник' className={classes.imageLight} />
+                      </div>
+                      <div>
+                        <FormControl>
+                          <FormControlLabel control={
+                            <Radio color="secondary" disableRipple disabled={klass == 0} checked={color === 1} onChange={() => setColor(1)}/>}
+                            label="Черный"
+                            labelPlacement="end"    
+                          />
+                        </FormControl>
+                      </div>
                     </div>
                   </Grid>
-                  <Grid item>
+                  <Grid item xs={12}>
+                    <div style={{display: 'flex', justifyContent: 'space-evenly', alignItems: 'center'}}>
+                      <div className={cn(classes.lightCheck, { [classes.lightCheckActive]: color === 2 })}>
+                        <img src={whitelight} alt='белый светильник' className={classes.imageLight} />
+                      </div>
+                      <div>
+                        <FormControl>
+                          <FormControlLabel control={
+                            <Radio color="secondary" disableRipple disabled={klass == 0} checked={color === 2} onChange={() => setColor(2)}/>}
+                            label="Белый"
+                            labelPlacement="end"    
+                          />
+                        </FormControl>
+                      </div>
+                    </div>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <div style={{display: 'flex', justifyContent: 'space-evenly', alignItems: 'center'}}>
+                      <div className={cn(classes.lightCheck, { [classes.lightCheckActive]: color === 3 })}>
+                        <img src={goldlight} alt='золотой светильник' className={classes.imageLight} />
+                      </div>
+                      <div>
+                        <FormControl>
+                          <FormControlLabel control={
+                            <Radio color="secondary" disableRipple disabled={klass == 0} checked={color === 3} onChange={() => setColor(3)}/>}
+                            label="Золотой"
+                            labelPlacement="end"    
+                          />
+                        </FormControl>
+                      </div>
+                    </div>
+                  </Grid>
+                  <Grid item xs={12} className={classes.paddingOnXsScreen}> 
                     <div>
                       <FormControl>
                         <FormControlLabel control={
-                          <Checkbox
-                            disableRipple
-                            icon={<img src={tick} alt='checkbox' className={classes.tickIcon} />}
-                            checkedIcon={<img src={tickChecked} alt='checkbox' className={classes.tickIcon} 
-                            checked={help3} onChange={(e, ch) => setHelp3(ch)}/>}  
-                          />}
-                          label={<>Нужен совет 3<br />специалиста</>}
-                          labelPlacement="bottom"    
-                        />
+                          <Radio color="secondary" disableRipple checked={color === 4} onChange={() => setColor(4)}/>}
+                            label={<>Нужен совет<br />специалиста</>}
+                            labelPlacement="bottom"    
+                          />
                       </FormControl>
                     </div>
                     <div style={{marginTop: 40}}>
@@ -450,14 +445,27 @@ export const MobileFour = () => {
         </Grid>
       </Grid>
       <Grid item md={12} style={{padding: '64px 0', textAlign: 'center'}}>
-        <ContainedButton>
+        <ContainedButton onClick={onClickCalc}>
           <div>
             <div>Получить расчет</div>
-            <div style={{ fontSize: '0.8em' }}>{Math.ceil(CONSTS[klass].init + (length * CONSTS[klass].cost))} ₽</div>
           </div>
         </ContainedButton>
       </Grid>
     </Grid>
+    <FormDialog
+      open={dialogOpenCalc}
+      onClose={() => setDialogOpenCalc(!dialogOpenCalc)}
+      title='Чтобы получить расчет'
+      button='Получить расчет'
+      price={price}
+      color={meta.color[color]}
+      length={length}
+      klass={meta.klass[klass]}
+      type={meta.type[type]}
+      onSubmit={(data) => {
+        trigger('clacResp');
+      }}
+    />
   </div>
   )
 }

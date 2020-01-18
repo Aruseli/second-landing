@@ -49,9 +49,10 @@ const useStyle = makeStyles((theme) => ({
 }))
 
 const items = [
+  
   {
     id: 1,
-    src: require('../../../images/Photo-15.jpg?resize&size=600'),
+    src: require('../../../images/Photo-17.jpg?resize&size=600'),
   },
   {
     id: 2,
@@ -59,13 +60,13 @@ const items = [
   },
   {
     id: 3,
-    src: require('../../../images/Photo-17.jpg?resize&size=600'),
-  }
+    src: require('../../../images/Photo-15.jpg?resize&size=600'),
+  },
 ]
 
 export const DesktopEight = () => {
   const classes = useStyle();
-  const [index, setIndex] = useState(0);
+  const [index, setIndex] = useState(items.length - 1);
   const selectedIndex = items.findIndex(item => item.id == index);
 
   const onPrevClick = () => setIndex(index == 0 ? 0 : index -1);
@@ -128,10 +129,10 @@ export const DesktopEight = () => {
               </Grid>
               <Grid item style={{padding: '48px 0', position: 'relation'}}>
                 <div style={{}}>
-                <Typography variant='h3' component='h2' style={{color: '#fff', position: 'relative'}}>
+                <Typography variant='h3' component='h2' gutterBottom style={{color: '#fff', position: 'relative'}}>
                     <FiberManualRecordRounded className={classes.dotIcon} />Светодиодны высокой цветопередачи
                   </Typography>
-                  <Typography variant='body1' component='div' style={{color: '#b4b4b4'}}>
+                  <Typography variant='body1' component='div' gutterBottom style={{color: '#b4b4b4'}}>
                     Мы применяем светодиоды высокой цветопередачи,<br />что делает свет приближенным к 
                     естественному<br />солнечному цвету, и Вы видите предметы привычно,<br />как и при дневном свете.
                   </Typography>
@@ -140,7 +141,7 @@ export const DesktopEight = () => {
                   </Typography>
                 </div>
                 <div style={{}}>
-                  <Typography variant='h3' component='h2' style={{color: '#fff', position: 'relative'}}>
+                  <Typography variant='h3' component='h2' gutterBottom style={{color: '#fff', position: 'relative'}}>
                     <FiberManualRecordRounded className={classes.dotIcon} />Блок питания
                   </Typography>
                   <Typography variant='body1' component='div' style={{color: '#b4b4b4'}}>
@@ -159,12 +160,12 @@ export const DesktopEight = () => {
           <Typography variant='h3' component='h2' className={classes.textColor}>
             <FiberManualRecordRounded className={classes.dotIcon} />Система управления
           </Typography>
-          <Typography variant='body1' component='div'>
+          <Typography variant='body1' gutterBottom component='div'>
             Для Вашего удобства, светильник оснащен<br />бесконтактной системой управления.<br /> 
             Вы можете его включать, выключать, регулировать<br />яркость без прикосновения, 
             только по взмаху руки,<br />как волшебной палочкой!
           </Typography>
-          <Typography variant='body2' component='div' paragraph>
+          <Typography variant='body2' component='div' paragraph style={{fontSize: 18}}>
             Это удобно и гигиенично.
           </Typography>
           <Typography variant='h3' component='h2' className={classes.textColor}>

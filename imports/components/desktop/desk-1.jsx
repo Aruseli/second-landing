@@ -89,11 +89,16 @@ export const DesktopOne = () => {
   const[activeImage, setActiveImage] = useState(0);
   const { trigger } = useContext(AnaliticsContext);
   const [dialogOpenQuestion, setDialogOpenQuestion] = useState(false);
+  const [dialogOpenLight, setDialogOpenLight] = useState(false);
   const [dialogOpenCall, setDialogOpenCall] = useState(false);
 
   const onClickQuestion = () => {
     setDialogOpenQuestion(!dialogOpenQuestion);
     trigger('questionRequest1');
+  }
+  const onClickLight = () => {
+    setDialogOpenLight(!dialogOpenLight);
+    trigger('lightRequest1');
   }
   const onClickCall = () => {
     setDialogOpenCall(!dialogOpenCall);
@@ -116,7 +121,7 @@ export const DesktopOne = () => {
             <Contacts style={{margin: '0 16px', width: 25}} onClick={onClickCall} />
           </Grid> 
           <Grid item>
-            <ContainedButtonSmall />
+            <ContainedButtonSmall onClick={onClickLight} />
           </Grid> 
         </Grid>
       </div>
@@ -185,10 +190,17 @@ export const DesktopOne = () => {
         onSubmit={() => trigger('questionThanks1')}
       />
       <FormDialog
+        open={dialogOpenLight}
+        onClose={() => setDialogOpenLight(!dialogOpenLight)}
+        title='Чтобы заказать светильник'
+        button='Заказать светильник'
+        onSubmit={() => trigger('lightThanks1')}
+      />
+      <FormDialog
         open={dialogOpenCall}
         onClose={() => setDialogOpenCall(!dialogOpenCall)}
         title='Чтобы заказать звонок'
-        button='Задать звонок'
+        button='Заказать звонок'
         onSubmit={() => trigger('callThanks1')}
       />
     </div>

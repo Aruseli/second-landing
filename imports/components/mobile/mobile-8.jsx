@@ -67,10 +67,10 @@ export const MobileEight = () => {
       </Typography> 
       <div className={classes.line}>   
         <div style={{}}>
-          <Typography variant='h3' component='h2' style={{color: '#fff', position: 'relative'}}>
+          <Typography variant='h3' component='h2' gutterBottom style={{color: '#fff', position: 'relative'}}>
             <FiberManualRecordRounded className={classes.dotIcon} />Светодиодны высокой цветопередачи
           </Typography>
-          <Typography variant='body1' component='div' style={{color: '#b4b4b4'}}>
+          <Typography variant='body1' component='div' gutterBottom style={{color: '#b4b4b4'}}>
             Мы применяем светодиоды высокой цветопередачи, что делает свет приближенным к 
             естественному солнечному цвету, и Вы видите предметы привычно, как и при дневном свете.
           </Typography>
@@ -79,7 +79,7 @@ export const MobileEight = () => {
           </Typography>
         </div>
         <div style={{}}>
-          <Typography variant='h3' component='h2' style={{color: '#fff', position: 'relative'}}>
+          <Typography variant='h3' component='h2' gutterBottom style={{color: '#fff', position: 'relative'}}>
             <FiberManualRecordRounded className={classes.dotIcon} />Блок питания
           </Typography>
           <Typography variant='body1' component='div' style={{color: '#b4b4b4'}}>
@@ -90,27 +90,29 @@ export const MobileEight = () => {
       </div> 
       <Slider items={items} style={{marginTop: 48}} />
       <Container style={{margin: '32px 0'}}>  
-        <Typography variant='h3' component='h2' className={classes.textColor}>
+        <Typography variant='h3' component='h2' gutterBottom className={classes.textColor}>
           <FiberManualRecordRounded className={classes.dotIcon} />Система управления
         </Typography>
-        <Typography variant='body1' component='div'>
+        <Typography variant='body1' gutterBottom component='div'>
           Для Вашего удобства, светильник оснащен бесконтактной системой управления.  
           Вы можете его включать, выключать, регулировать яркость без прикосновения, 
           только по взмаху руки, как волшебной палочкой!
         </Typography>
-        <Typography variant='body2' component='div' paragraph>
+        <Typography variant='body2' component='div' paragraph style={{fontSize: 18}}>
           Это удобно и гигиенично.
         </Typography>
-        <Typography variant='h3' component='h2' className={classes.textColor}>
+        <Typography variant='h3' component='h2' gutterBottom className={classes.textColor}>
           <FiberManualRecordRounded className={classes.dotIcon} />Светодиодная подсветка
         </Typography>
         <Typography variant='body1' component='div' gutterBottom>
           Светодиодная подсветка имеет низкое энергопотребление, а значит, <b>экономит Ваши деньги.</b>
         </Typography>
       </Container>
-      <img src={system} alt='бесконтактная система управления Fulogy' style={{width: '100%'}} />
+      <div style={{height: '100vw'}}>
+        <img src={system} alt='бесконтактная система управления Fulogy' style={{width: '100%', height: '100%', objectFit: 'cover'}} />
+      </div>
       <Container style={{margin: '32px 0'}}>
-        <Typography variant='h3' component='h2' className={classes.textColor}>
+        <Typography variant='h3' component='h2' gutterBottom className={classes.textColor}>
           <FiberManualRecordRounded className={classes.dotIcon} />Алюминиевый корпус
         </Typography>
         <Typography variant='body1' component='div'>
@@ -118,7 +120,9 @@ export const MobileEight = () => {
           возможным использование мощных ярких лент без боязни перегрева.
         </Typography>
       </Container>
-      <img src={assembly} alt='бесконтактная система управления Fulogy' style={{width: '100%'}} />
+      <div style={{height: '100vw'}}>
+        <img src={assembly} alt='бесконтактная система управления Fulogy' style={{width: '100%', height: '100%', objectFit: 'cover'}} />
+      </div>
     </div>
   )
 }

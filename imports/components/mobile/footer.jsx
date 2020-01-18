@@ -49,6 +49,38 @@ const useStyle = makeStyles((theme) => ({
     width: '100vw',
     textAlign: 'center',
     marginTop: 24
+  },
+  paymentMaster: {
+    width: 45, 
+    margin: '16px 16px',
+    '@media(max-width: 494px)': {
+      width: '9%',
+      position: 'relative',
+      top: 5
+    }
+  },
+  paymentVisa: {
+    width: 100,
+    margin: '16px 16px',
+    '@media(max-width: 494px)': {
+      width: '16%'
+    }
+  },
+  paymentMir: {
+    width: 100, 
+    margin: '16px 16px', 
+    paddingBottom: 6,
+    '@media(max-width: 494px)': {
+      width: '15%',
+      paddingBottom: 2,
+    }
+  },
+  paymentHalva: {
+    width: 120, 
+    margin: '16px 16px',
+    '@media(max-width: 494px)': {
+      width: '18%'
+    }
   }
 }))
 
@@ -134,7 +166,7 @@ export const FooterMobile = ({}) => {
           justify='center'
           alignItems='stretch'
         >
-          <Grid item>
+          <Grid item xs={4}>
             <Button 
               variant='text' 
               fullWidth 
@@ -201,10 +233,10 @@ export const FooterMobile = ({}) => {
           Принимаем к оплате:
         </Typography>
         <div className={classes.paySystem}>
-          <img src={master} alt='оплата master-card' style={{width: 45, margin: '16px 16px'}} />
-          <img src={visa} alt='оплата visa' style={{width: 100, margin: '16px 16px'}} />
-          <img src={mir} alt='оплата mir' style={{width: 100, margin: '16px 16px', paddingBottom: 6}} />
-          <img src={halva} alt='оплата halva' style={{width: 120, margin: '16px 16px'}} />
+          <img src={master} alt='оплата master-card' className={classes.paymentMaster} />
+          <img src={visa} alt='оплата visa' className={classes.paymentVisa} />
+          <img src={mir} alt='оплата mir' className={classes.paymentMir} />
+          <img src={halva} alt='оплата halva' className={classes.paymentHalva} />
         </div>
       </Grid>
     </Grid>

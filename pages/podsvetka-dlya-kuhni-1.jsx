@@ -37,7 +37,10 @@ export default wrapPage(() => (<>
     <title>Fulogy</title>
   </Head>
   <Hidden implementation='css' only={['sm', 'xs']}>
-    <div style={{maxWidth: 1420, margin: '0 auto', border: '1px solid #cdcdcd'}}>
+    <div style={{maxWidth: 1260, 
+      margin: '0 auto', 
+      // border: '1px solid #cdcdcd'
+      }}>
       <DesktopOne /> 
       <DesktopTwo />
       <DesktopThree /> 

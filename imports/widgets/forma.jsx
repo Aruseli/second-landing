@@ -1,33 +1,28 @@
-import React, {useContext, useState, useEffect} from 'react';
-
-import {
-  makeStyles,  
-  Dialog,
-  DialogContent,
-  DialogActions,
-  TextField,
-  IconButton,
-  Typography,
-  Button,
-  Hidden,
-  Grid,
-  Checkbox,
-  FormControlLabel,
-  FormControl,
-} from '@material-ui/core';
-
+import { Button, Checkbox, Dialog, DialogActions, DialogContent, FormControl, FormControlLabel, Grid, Hidden, IconButton, makeStyles, TextField, Typography } from '@material-ui/core';
 import Close from '@material-ui/icons/Close';
 
-import { Context as AnaliticsContext } from '../project/analitics';
+import { MuiPhoneNumber, UniformPhone } from './material-ui-phone-number';
 
 import axios from 'axios';
+
 import Cookies from 'js-cookie';
 
+import React, { useContext, useEffect, useState, useRef } from 'react';
+
+import {
+  AutoField,
+  AutoForm,
+  ErrorField,
+  SubmitField,
+  BoolField
+} from 'uniforms-material';
+
+import GuestSchema from '../project/api/schema';
+
+import { Context as AnaliticsContext } from '../project/analitics';
+import { format } from 'util';
+
 const useStyle = makeStyles(theme => ({
-  dialogStyles: {
-    width: '100%',
-    maxWidth: 350
-  },
   closeButton: {
     position: 'absolute',
     right: 0,
@@ -42,14 +37,20 @@ const useStyle = makeStyles(theme => ({
     borderRadius: 10,
     backgroundColor: '#fff'
   },
-  myInputLabel: {
-    '&:focus': {
-      borderColor: theme.palette.secondary.main 
-    }
-  },
   tickIcon: {
     width: 16
-  }, 
+  },
+  errorMessage: { 
+    '& > *': {
+      position: 'absolute',
+      top: -8,
+      right: 0,
+      padding: 6,
+      borderRadius: 5,
+      boxShadow: '0 2px 10px 0 rgba(23, 23, 23, 0.1)',
+      width: 'initial',
+    }
+  } 
 }))
 
 const foto = require('../../images/forma.jpg?resize&size=600');
@@ -68,34 +69,64 @@ const Thanks = () => {
   )
 }
 
-export const FormDialog = ({open, onClose, title, button, onSubmit}) => {
+const AForma = ({title, button, thanks, trigger, onSubmit, price, type, length, color, klass}) => {
+  const classes = useStyle();
+  
+  return (
+    <AutoForm 
+      schema={GuestSchema} 
+      onSubmit={async (data) => {
+        onSubmit && onSubmit();
+        await console.log('/api/lead',{ 
+          type: type,
+          length: length,
+          color: color,
+          klass: klass,
+          price: price,
+          name: data.name,
+          phone: data.phone,
+          page: document.location && (document.location.origin + document.location.pathname),
+          pixelId: Cookies.get('__opix_uid'),
+        })
+      }}
+    >
+      <Typography variant='h2' component='h2' align='center' style={{color: '#1a1a1a'}}>{title}</Typography>
+      <Typography variant='body1' component="p" align='center' gutterBottom style={{color: '#b4b4b4'}}>Введите свое имя и телефон</Typography>
+      <AutoField name="name" label={false} placeholder='Ваше имя' />
+      <div style={{position: 'relative', marginTop: 24}}>
+        <UniformPhone name="phone" value="+7" type="text" />
+        <div className={classes.errorMessage}>
+          <ErrorField name="phone">
+            <span style={{color: '#1a1a1a'}}>Поле должно быть заполненно</span>
+          </ErrorField>
+        </div>
+      </div>
+      <div style={{marginTop: 24}}>
+        <BoolField 
+          name='acceptTermsOfUse'
+          icon={<img src={tick} alt='checkbox' className={classes.tickIcon} />}
+          checkedIcon={<img src={tickChecked} alt='checkbox' className={classes.tickIcon} />}
+          label={<>Я принимаю условия <br /><a href='/privacy-policy' style={{color: '#f35454'}} target='_blank'>политики конфиденциальности</a></>}
+        />
+      </div>
+      <ErrorField name='acceptTermsOfUse' />
+      <SubmitField fullWidth variant="contained" color="secondary" style={{color: '#fff', marginTop: 24}} size="large">
+        {button}
+      </SubmitField>
+    </AutoForm>
+  );
+}
+
+export const FormDialog = ({open, onClose, title, button, onSubmit, price, type, length, color, klass}) => {
   const classes = useStyle();
   const { trigger } = useContext(AnaliticsContext);
   const[openThanks, setOpenThanks] = useState(false);
-  const[nameValue, setNameValue] = useState('');
-  const[phoneValue, setPhoneValue] = useState('');
-  const[policy, setPolicy] = useState(true);
 
   useEffect(() => {
     if (open) {
       setOpenThanks(false);
-      setNameValue('');
-      setPhoneValue('');
     }
   }, [open]);
-
-  const buttonElement = <Button fullWidth variant="contained" color="secondary" style={{color: '#fff'}} size="large" 
-    onClick={async () => {
-      setOpenThanks(!openThanks);
-      trigger('thanks');
-      onSubmit && onSubmit();
-      await axios.post('/api/lead',{ 
-        name: nameValue,
-        phone: phoneValue,
-        page: document.location && (document.location.origin + document.location.pathname),
-        pixelId: Cookies.get('__opix_uid'),
-      })
-    }} disabled={policy == false}>{button}</Button>;
 
   return(
     <>
@@ -111,58 +142,29 @@ export const FormDialog = ({open, onClose, title, button, onSubmit}) => {
           ? <Thanks />
           : <>
             <DialogContent style={{padding: 32, boxSizing: 'border-box'}}>
-              <Typography variant='h2' component='h2' align='center' style={{color: '#1a1a1a'}}>{title}</Typography>
-              <Typography variant='body1' component="p" align='center' gutterBottom style={{color: '#b4b4b4'}}>Введите свое имя и телефон</Typography>
-              <div style={{paddingTop: 16}}>
-                <TextField
-                  onChange={(e) => setNameValue(e.target.value)}
-                  value={nameValue}
-                  className={classes.myInputLabel}
-                  placeholder="Имя"
-                  autoFocus
-                  id="name"
-                  type="text"
-                  fullWidth
-                  variant="outlined"
-                  margin="normal"
-                />
-                <TextField
-                  onChange={(e) => setPhoneValue(e.target.value)}
-                  value={phoneValue}
-                  placeholder="Телефон"
-                  required
-                  id="phone"
-                  type="phone"
-                  fullWidth
-                  margin="normal"
-                  variant="outlined"
-                  inputProps={{pattern: "[+]?(\\d[-\\(\\)\\s]*){11}"}}
-                />
-              </div>
-              <FormControl>
-                <FormControlLabel control={
-                  <Checkbox
-                    disableRipple
-                    icon={<img src={tick} alt='checkbox' className={classes.tickIcon} />}
-                    checkedIcon={<img src={tickChecked} alt='checkbox' className={classes.tickIcon} />}
-                    checked={policy} onChange={(e, ch) => setPolicy(ch)}
-                  />}
-                  label={<>Я принимаю условия <br /><a href='/privacy-policy' style={{color: '#f35454'}} target='_blank'>политики конфиденциальности</a></>}
-                  labelPlacement="right"    
-                />
-              </FormControl>
+              <AForma 
+                title={title} 
+                button={button} 
+                price={price}
+                type={type}
+                length={length}
+                color={color}
+                klass={klass}
+                onSubmit={() => {
+                  setOpenThanks(!openThanks);
+                  trigger('thanks');
+                  onSubmit && onSubmit(); 
+                }}
+              />
             </DialogContent>
-            <DialogActions style={{padding: 24}}>
-              {buttonElement}
-            </DialogActions>
           </>}
         </Hidden>
         <Hidden implementation='css' only={['sm', 'xs']}>
-          <Grid container justify='center' alignItems='center' style={{backgroundColor: '#8c8c8c', padding: 32}}>
+          <Grid container justify='center' alignItems='center'>
             <Grid item style={{borderRadius: 5}}>
               <Grid container justify='center' alignItems='stretch'>
                 <Grid item sm={6}>
-                  <img src={foto} style={{width: '100%'}} />
+                  <img src={foto} style={{width: '100%', height: '100%'}} />
                 </Grid>
                 <Grid item sm={6} style={{backgroundColor: '#fff'}}>
                   <IconButton
@@ -175,51 +177,17 @@ export const FormDialog = ({open, onClose, title, button, onSubmit}) => {
                   ? <Thanks />
                   : <>
                     <DialogContent style={{padding: '64px 32px', boxSizing: 'border-box'}}>
-                      <Typography variant='h2' component='h2' align='center' style={{color: '#1a1a1a'}}>{title}</Typography>
-                      <Typography variant='body1' component="p" align='center' gutterBottom style={{color: '#b4b4b4'}}>Введите свое имя и телефон</Typography>
-                      <div style={{paddingTop: 16}}>
-                        <TextField
-                          onChange={(e) => setNameValue(e.target.value)}
-                          value={nameValue}
-                          className={classes.myInputLabel}
-                          placeholder="Имя"
-                          autoFocus
-                          id="name"
-                          type="text"
-                          fullWidth
-                          variant="outlined"
-                          margin="normal"
-                        />
-                        <TextField
-                          onChange={(e) => setPhoneValue(e.target.value)}
-                          value={phoneValue}
-                          placeholder="Телефон"
-                          required
-                          id="phone"
-                          type="phone"
-                          fullWidth
-                          margin="normal"
-                          variant="outlined"
-                          inputProps={{pattern: "[+]?(\\d[-\\(\\)\\s]*){11}"}}
-                        />
-                      </div>
-                      <FormControl>
-                        <FormControlLabel control={
-                          <Checkbox
-                            disableRipple
-                            icon={<img src={tick} alt='checkbox' className={classes.tickIcon} />}
-                            checkedIcon={<img src={tickChecked} alt='checkbox' className={classes.tickIcon} />}
-                            checked={policy} onChange={(e, ch) => setPolicy(ch)}
-                          />}
-                          label={<>Я принимаю условия <br /><a href='/privacy-policy' style={{color: '#f35454'}} target='_blank'>политики конфиденциальности</a></>}
-                          labelPlacement="right"    
-                        />
-                      </FormControl>
+                      <AForma 
+                        title={title} 
+                        button={button} 
+                        onSubmit={() => {
+                          setOpenThanks(!openThanks);
+                          trigger('thanks');
+                          onSubmit && onSubmit(); 
+                        }}
+                      />
                     </DialogContent>
-                  <DialogActions style={{paddingBottom: 48, paddingLeft: 32, paddingRight: 32}}>
-                    {buttonElement}
-                  </DialogActions>
-                </>}
+                  </>}
                 </Grid>
               </Grid>
             </Grid>  

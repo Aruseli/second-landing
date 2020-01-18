@@ -13,8 +13,8 @@ import { MobileSubscribe } from '../../widgets/mobile-subscribe';
 
 const useStyle = makeStyles((theme) => ({
   blockStyle: {
-    width: 400,
-    minWidth: 250,
+    width: 250,
+    maxWidth: 400,
     boxShadow: '0 10px 30px 0 rgba(0, 0, 0, .1)',
     boxSizing: 'border-box',
     padding: 32
@@ -78,7 +78,7 @@ export const MobileNine = () => {
             <Typography variant='h6' component='p' paragraph>
               Это займет не более 2-х минут
             </Typography>
-            <Button variant="contained" color="secondary" size="small" href='https://constructor.fulogy.com/quiz' target='_blank' onClick={onClick}>Пройти опрос</Button>
+            <Button variant="contained" fullWidth color="secondary" size="small" href='https://constructor.fulogy.com/quiz' target='_blank' onClick={onClick}>Пройти опрос</Button>
           </div>
           <img src={woman} style={{position: 'absolute', right: -60, bottom: 0, width: 120}} />
         </Grid>

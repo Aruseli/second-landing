@@ -15,7 +15,8 @@ import { Context as AnaliticsContext } from '../../project/analitics';
 const useStyle = makeStyles((theme) => ({
   animation: {
     transition: 'all 1s ease'
-  }
+  },
+  
 }))
 
 const items = [
@@ -63,14 +64,16 @@ export const DesktopSeven = () => {
   }
 
   return (<>
-    <Grid container justify='space-evenly' alignItems='center' style={{height: 200}}>
+    <Grid container justify='space-evenly' alignItems='center' style={{height: 261}}>
       {items.map((item, i) => (
-        <Grid item md={3} key={item.id} className={classes.animation}
+        <Grid item key={item.id} className={classes.animation}
           style={{
+            position: 'relative',
             opacity: selectedId == i ? 1 : 0.5,
-            height: '100%',
-            transform: selectedId == i ? 'scale(1)' : 'scale(0.7)',
-          }} onClick={() => setSelectedId(i)}
+            height: 261 * (selectedId == i ? 1 : 0.46),
+            minWidth: 380 * (selectedId == i ? 1 : 0.46),
+          }}
+           onMouseEnter={() => setSelectedId(i)}
         >
           <ChildrenResponsive style={{borderRadius: 5, boxShadow: '0 5px 5px 0 rgba(0, 0, 0, .2)'}}>
             <img src={item.src} alt={item.alt} style={{width: '100%'}} />

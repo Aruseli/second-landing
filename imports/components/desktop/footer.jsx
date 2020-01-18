@@ -134,7 +134,7 @@ export const Footer = ({}) => {
         <Grid item md={6} style={{ position: 'relative' }}>
           <Grid
             container
-            justify='space-between'
+            justify='flex-start'
             style={{ height: '100%' }}
           >
             <Grid item>

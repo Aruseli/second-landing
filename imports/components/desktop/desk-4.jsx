@@ -1,29 +1,14 @@
-import React, {useState, useContext} from 'react';
-
-import {
-  Grid,
-  makeStyles,
-  Typography,
-  Paper,
-  Divider,
-  Checkbox,
-  FormControlLabel,
-  FormControl,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  Radio
-} from '@material-ui/core';
-import {RemoveRounded, RadioButtonUnchecked, RadioButtonChecked} from '@material-ui/icons';
+import { Divider, FormControl, FormControlLabel, Grid, List, ListItem, ListItemText, makeStyles, Paper, Radio, Typography } from '@material-ui/core';
 
 import cn from 'classnames';
 
-import {ContainedButton} from '../../widgets/small-elements';
+import React, { useState, useContext } from 'react';
 
 import { Context as AnaliticsContext } from '../../project/analitics';
+import { FormDialog } from '../../widgets/forma';
 import { CalcSlider } from '../../widgets/slider';
-import { CheckBoxOutlineBlank } from '@material-ui/icons';
+import { ContainedButton } from '../../widgets/small-elements';
+
 
 const useStyle = makeStyles((theme) => ({
   root: {
@@ -35,14 +20,18 @@ const useStyle = makeStyles((theme) => ({
     position: 'absolute',
     width: 16,
     left: '25vw',
-    top: 80,
+    bottom: -46,
     transform: 'rotate(0deg)',
   },
   paperStyles: {
     padding: theme.spacing(4, 0),
     borderRadius: 10,
     border: '1px solid #f3f3f3',
-    marginTop: 72
+    marginTop: 72,
+    '@media(min-width: 960px) and (max-width: 1080px)': {
+      marginLeft: 16,
+      marginRight: 16
+    }
   },
   tickIcon: {
     width: 16
@@ -51,7 +40,7 @@ const useStyle = makeStyles((theme) => ({
     backgroundColor: '#f4f4f4',
     padding: theme.spacing(4),
     borderRadius: 10,
-    minHeight: 283
+    height: 'calc(100% - 42px)',
   },
   lightCheck: {
     width: 84,
@@ -94,9 +83,31 @@ const CONSTS = {
   },
 };
 
+export const meta = {
+  type: {
+    0: 'прямая',
+    1: 'П-образная',
+    2: 'Г-образная',
+    3: 'совет специалиста'
+  },
+  klass: {
+    0: 'PRO',
+    1: 'PRO+',
+    2: 'совет специалиста'
+  },
+  color: {
+    0: 'серый',
+    1: 'черный',
+    2: 'белый',
+    3: 'золотой',
+    4: 'совет специалиста',
+  }
+};
 
 export const DesktopFour = () => {
   const classes = useStyle();
+  const { trigger } = useContext(AnaliticsContext);
+  const [dialogOpenCalc, setDialogOpenCalc] = useState(false);
 
   const [length, setLength] = useState(3.4);
   const [help1, setHelp1] = useState(false);
@@ -105,6 +116,8 @@ export const DesktopFour = () => {
   const [type, setType] = useState(0);
   const [klass, setKlass] = useState(0);
   const [color, setColor] = useState(0);
+
+  const price = Math.ceil(CONSTS[klass].init + (length * CONSTS[klass].cost));
 
   return (<div className={classes.root}>
     <Grid container justify='center' alignItems='center'> 
@@ -186,15 +199,12 @@ export const DesktopFour = () => {
                     <div>
                       <FormControl>
                         <FormControlLabel control={
-                          <Checkbox
-                            disableRipple
-                            icon={<img src={tick} alt='checkbox' className={classes.tickIcon} />}
-                            checkedIcon={<img src={tickChecked} alt='checkbox' className={classes.tickIcon} />}
-                            checked={help1} onChange={(e, ch) => setHelp1(ch)}
-                          />}
-                          label={<>Нужен совет <br />специалиста</>}
-                          labelPlacement="bottom"    
-                        />
+                          <Radio color="secondary" disableRipple 
+                            checked={type === 3} 
+                            onChange={() => setType(3)}/>}
+                            label={<>Нужен совет<br />специалиста</>}
+                            labelPlacement="bottom"    
+                          />
                       </FormControl>
                     </div>
                     <div style={{marginTop: 40}}>
@@ -328,14 +338,9 @@ export const DesktopFour = () => {
                     <div>
                       <FormControl>
                         <FormControlLabel control={
-                          <Checkbox
-                            disableRipple
-                            icon={<img src={tick} alt='checkbox' className={classes.tickIcon} />}
-                            checkedIcon={<img src={tickChecked} alt='checkbox' className={classes.tickIcon} />}  
-                            checked={help2} onChange={(e, ch) => setHelp2(ch)}
-                          />}
-                          label={<>Нужен совет <br />специалиста</>}
-                          labelPlacement="bottom"    
+                          <Radio color="secondary" disableRipple checked={klass === 2} onChange={() => setKlass(2)}/>}
+                            label={<>Нужен совет<br />специалиста</>}
+                            labelPlacement="bottom"   
                         />
                       </FormControl>
                     </div>
@@ -369,7 +374,7 @@ export const DesktopFour = () => {
                     <div>
                       <FormControl>
                         <FormControlLabel control={
-                          <Radio color="secondary" disableRipple checked={color === 1} onChange={() => setColor(1)}/>}
+                          <Radio color="secondary" disableRipple disabled={klass == 0} checked={color === 1} onChange={() => setColor(1)}/>}
                           label="Черный"
                           labelPlacement="end"    
                         />
@@ -383,7 +388,7 @@ export const DesktopFour = () => {
                     <div>
                       <FormControl>
                         <FormControlLabel control={
-                          <Radio color="secondary" disableRipple checked={color === 2} onChange={() => setColor(2)}/>}
+                          <Radio color="secondary" disableRipple disabled={klass == 0} checked={color === 2} onChange={() => setColor(2)}/>}
                           label="Белый"
                           labelPlacement="end"    
                         />
@@ -397,7 +402,7 @@ export const DesktopFour = () => {
                     <div>
                       <FormControl>
                         <FormControlLabel control={
-                          <Radio color="secondary" disableRipple checked={color === 3} onChange={() => setColor(3)}/>}
+                          <Radio color="secondary" disableRipple disabled={klass == 0} checked={color === 3} onChange={() => setColor(3)}/>}
                           label="Золотой"
                           labelPlacement="end"    
                         />
@@ -411,15 +416,10 @@ export const DesktopFour = () => {
                     <div>
                       <FormControl>
                         <FormControlLabel control={
-                          <Checkbox
-                            disableRipple
-                            icon={<img src={tick} alt='checkbox' className={classes.tickIcon} />}
-                            checkedIcon={<img src={tickChecked} alt='checkbox' className={classes.tickIcon} />}  
-                            checked={help3} onChange={(e, ch) => setHelp3(ch)}
-                          />}
-                          label={<>Нужен совет <br />специалиста</>}
-                          labelPlacement="bottom"    
-                        />
+                          <Radio color="secondary" disableRipple checked={color === 4} onChange={() => setColor(4)}/>}
+                            label={<>Нужен совет<br />специалиста</>}
+                            labelPlacement="bottom"    
+                          />
                       </FormControl>
                     </div>
                     <div style={{marginTop: 40}}>
@@ -436,11 +436,24 @@ export const DesktopFour = () => {
         <ContainedButton>
           <div>
             <div>Получить расчет</div>
-            <div style={{ fontSize: '0.8em' }}>{Math.ceil(CONSTS[klass].init + (length * CONSTS[klass].cost))} ₽</div>
           </div>
         </ContainedButton>
       </Grid>
     </Grid>
+    <FormDialog
+      open={dialogOpenCalc}
+      onClose={() => setDialogOpenCalc(!dialogOpenCalc)}
+      title='Чтобы получить расчет'
+      button='Получить расчет'
+      price={price}
+      color={meta.color[color]}
+      length={length}
+      klass={meta.klass[klass]}
+      type={meta.type[type]}
+      onSubmit={(data) => {
+        trigger('clacResp');
+      }}
+    />
   </div>
   )
 }

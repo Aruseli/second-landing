@@ -22,6 +22,14 @@ import {FormDialog} from '../../widgets/forma';
 import { Context as AnaliticsContext } from '../../project/analitics';
 
 const useStyle = makeStyles((theme) => ({
+  header: {
+    position: 'relative',
+    width: '100%',
+    padding: 16,
+    '@media(max-width: 369px)': {
+      justifyContent: 'center'
+    }
+  },
   root: {
     position: 'relative',
     backgroundImage: `url(${bg})`,
@@ -108,11 +116,7 @@ export const MobileOne = () => {
         container
         justify='space-between'
         alignItems='center'
-        style={{
-          position: 'relative',
-          width: '100%',
-          padding: 16,
-        }}
+        className={classes.header}
       >
         <Grid item>
           <Logo className={classes.logoStyle} />
@@ -153,25 +157,25 @@ export const MobileOne = () => {
         <Grid item>
           <Brightness1Rounded className={classes.icons} style={{color: '#D7DCDF', filter: 'drop-shadow(0 0 6px rgba(0,0,0, 0.7))'}} onClick={() => setActiveImage(0)} />
           <div>
-            <Typography variant='body1' component='span'>Серый</Typography>
+            <Typography variant='body2' component='span'>Серый</Typography>
           </div>
         </Grid>
         <Grid item>
           <Brightness1Rounded className={classes.icons} style={{color: '#343537', filter: 'drop-shadow(0 0 6px rgba(0,0,0, 0.7))'}} onClick={() => setActiveImage(1)} />
           <div>
-            <Typography variant='body1' component='span'>Черный</Typography>
+            <Typography variant='body2' component='span'>Черный</Typography>
           </div>
         </Grid>
         <Grid item>
           <Brightness1Rounded className={classes.icons} style={{color: '#fff', filter: 'drop-shadow(0 0 6px rgba(0,0,0, 0.7))'}} onClick={() => setActiveImage(2)} />
           <div>
-            <Typography variant='body1' component='span'>Белый</Typography>
+            <Typography variant='body2' component='span'>Белый</Typography>
           </div>
         </Grid>
         <Grid item>
           <Brightness1Rounded className={classes.icons} style={{color: '#FEEEC8', filter: 'drop-shadow(0 0 6px rgba(0,0,0, 0.7))'}} onClick={() => setActiveImage(3)} />
           <div>
-            <Typography variant='body1' component='span'>Золотой</Typography>
+            <Typography variant='body2' component='span'>Золотой</Typography>
           </div>
         </Grid>  
       </Grid>

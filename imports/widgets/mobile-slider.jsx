@@ -15,7 +15,11 @@ const useStyle = makeStyles(theme => ({
     position: 'relative', 
     width: 95,
     height: 70,
-    display: 'inline-block'
+    display: 'inline-block',
+    '@media(max-width: 345px)': {
+      width: 85,
+      height: 50
+    }
   },
   alignItemsMobile: {
     marginTop: 16, 

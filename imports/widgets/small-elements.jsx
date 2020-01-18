@@ -25,7 +25,7 @@ const useStyle = makeStyles((theme) => ({
   containedButton: {
     backgroundColor: theme.palette.secondary.main,
     '&:hover': {
-      boxShadow: '0 15px 5px 0 rgba(0,0,0, 0.2)'
+      boxShadow: '0 3px 5px 0 rgba(26, 26, 26, 0.2)'
     },
   },
   textButton: {

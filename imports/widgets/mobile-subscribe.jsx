@@ -48,10 +48,10 @@ export const MobileSubscribe = ({onClickQuestion, onClickCall, onClickRequest, o
         <Grid item xs={12}>
           <Button fullWidth variant="contained" color="secondary" className={classes.buttonStyle} size="large" onClick={onClickQuestion}><img src={interview} alt='задать вопрос менеджеру Fulogy' className={classes.iconStyles} />Задать вопрос</Button>
         </Grid>
-        <Grid item xs={12} style={{marginTop: 64}}>
+        <Grid item xs={12} style={{marginTop: 48}}>
           <Button fullWidth variant="contained" color="secondary" className={classes.buttonStyle} size="large" onClick={onClickCall}><img src={call} alt='заказать звонок менеджеру Fulogy' className={classes.iconStyles} />Заказать звонок</Button>
         </Grid>
-        <Grid item xs={12} style={{marginTop: 64}}>
+        <Grid item xs={12} style={{marginTop: 48}}>
           <Button fullWidth variant="contained" color="secondary" className={classes.buttonStyle} size="large" onClick={onClickRequest}><img src={send} alt='заказать звонок менеджеру Fulogy' className={classes.iconStyles} />Оформить заявку</Button>
         </Grid>
       </Grid>
