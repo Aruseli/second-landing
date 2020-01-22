@@ -72,7 +72,7 @@ const AForma = ({title, button, thanks, trigger, onSubmit, price, type, length, 
       schema={GuestSchema} 
       onSubmit={async (data) => {
         onSubmit && onSubmit();
-        await console.log('/api/lead',{ 
+        await axios.post('/api/lead',{ 
           type: type,
           length: length,
           color: color,
