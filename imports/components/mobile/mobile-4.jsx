@@ -9,7 +9,6 @@ import { Context as AnaliticsContext } from '../../project/analitics';
 import { CalcSlider } from '../../widgets/slider';
 import { ContainedButton } from '../../widgets/small-elements';
 import { FormDialog } from '../../widgets/forma';
-import { meta } from '../desktop/desk-4';
 
 
 const useStyle = makeStyles((theme) => ({
@@ -84,6 +83,27 @@ const graylight = require('../../../images/1-gray.png?resize&size=600');
 const blacklight = require('../../../images/2-black.png?resize&size=600');
 const whitelight = require('../../../images/3-white.png?resize&size=600');
 const goldlight = require('../../../images/4-gold.png?resize&size=600');
+
+const meta = {
+  type: {
+    0: 'прямая',
+    1: 'П-образная',
+    2: 'Г-образная',
+    3: 'совет специалиста'
+  },
+  klass: {
+    0: 'PRO',
+    1: 'PRO+',
+    2: 'совет специалиста'
+  },
+  color: {
+    0: 'серый',
+    1: 'черный',
+    2: 'белый',
+    3: 'золотой',
+    4: 'совет специалиста',
+  }
+};
 
 const CONSTS = {
   0: {

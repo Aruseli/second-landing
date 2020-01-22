@@ -149,8 +149,8 @@ export const DesktopOne = () => {
             border: '1px solid #625E7A',
             position: 'absolute',
             padding: '8px 32px',
-            bottom: 'calc(60% + 48px)',
-            left: 'calc(30% + 94px)', 
+            bottom: 'calc(60% + 30px)',
+            left: 'calc(30% + 70px)', 
             zIndex: 11111
           }}>
             <img src={line} 

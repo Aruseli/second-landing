@@ -28,10 +28,6 @@ const useStyle = makeStyles(theme => ({
     right: 0,
     top: 0,
     color: theme.palette.grey[500],
-    [theme.breakpoints.up('md')]: {
-      right: theme.spacing(3),
-      top: theme.spacing(3),
-    }
   },
   paperDialog: {
     borderRadius: 10,
@@ -58,7 +54,6 @@ const tick = require('../../public/images/icon/tick-border.svg');
 const tickChecked = require('../../public/images/icon/tick-checked.svg');
 
 const Thanks = () => {
-
   return(
     <>
       <DialogContent style={{padding: 32, boxSizing: 'border-box', backgroundColor: '#303c4f'}}>
@@ -160,6 +155,15 @@ export const FormDialog = ({open, onClose, title, button, onSubmit, price, type,
           </>}
         </Hidden>
         <Hidden implementation='css' only={['sm', 'xs']}>
+        <IconButton
+          aria-label="close"
+          className={classes.closeButton}
+          onClick={onClose}>
+          <Close style={{height: 24, width: 24}} />
+        </IconButton>
+        { openThanks 
+          ? <Thanks />
+          :
           <Grid container justify='center' alignItems='center'>
             <Grid item style={{borderRadius: 5}}>
               <Grid container justify='center' alignItems='stretch'>
@@ -167,19 +171,16 @@ export const FormDialog = ({open, onClose, title, button, onSubmit, price, type,
                   <img src={foto} style={{width: '100%', height: '100%'}} />
                 </Grid>
                 <Grid item sm={6} style={{backgroundColor: '#fff'}}>
-                  <IconButton
-                    aria-label="close"
-                    className={classes.closeButton}
-                    onClick={onClose}>
-                    <Close style={{height: 36, width: 36}} />
-                  </IconButton>
-                  { openThanks 
-                  ? <Thanks />
-                  : <>
+                   <>
                     <DialogContent style={{padding: '64px 32px', boxSizing: 'border-box'}}>
                       <AForma 
                         title={title} 
                         button={button} 
+                        price={price}
+                        type={type}
+                        length={length}
+                        color={color}
+                        klass={klass}
                         onSubmit={() => {
                           setOpenThanks(!openThanks);
                           trigger('thanks');
@@ -187,11 +188,11 @@ export const FormDialog = ({open, onClose, title, button, onSubmit, price, type,
                         }}
                       />
                     </DialogContent>
-                  </>}
+                  </>
                 </Grid>
               </Grid>
             </Grid>  
-          </Grid>
+          </Grid>}
         </Hidden>
       </Dialog>
     </>

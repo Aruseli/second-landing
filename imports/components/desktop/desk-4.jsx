@@ -1,4 +1,16 @@
-import { Divider, FormControl, FormControlLabel, Grid, List, ListItem, ListItemText, makeStyles, Paper, Radio, Typography } from '@material-ui/core';
+import { 
+  Divider, 
+  FormControl, 
+  FormControlLabel, 
+  Grid, 
+  List, 
+  ListItem, 
+  ListItemText, 
+  makeStyles, 
+  Paper, 
+  Radio, 
+  Typography 
+} from '@material-ui/core';
 
 import cn from 'classnames';
 
@@ -28,7 +40,7 @@ const useStyle = makeStyles((theme) => ({
     borderRadius: 10,
     border: '1px solid #f3f3f3',
     marginTop: 72,
-    '@media(min-width: 960px) and (max-width: 1080px)': {
+    '@media(min-width: 960px) and (max-width: 1140px)': {
       marginLeft: 16,
       marginRight: 16
     }
@@ -40,7 +52,7 @@ const useStyle = makeStyles((theme) => ({
     backgroundColor: '#f4f4f4',
     padding: theme.spacing(4),
     borderRadius: 10,
-    height: 'calc(100% - 42px)',
+    height: 'calc(100% - 112px)',
   },
   lightCheck: {
     width: 84,
@@ -83,7 +95,7 @@ const CONSTS = {
   },
 };
 
-export const meta = {
+const meta = {
   type: {
     0: 'прямая',
     1: 'П-образная',
@@ -110,14 +122,16 @@ export const DesktopFour = () => {
   const [dialogOpenCalc, setDialogOpenCalc] = useState(false);
 
   const [length, setLength] = useState(3.4);
-  const [help1, setHelp1] = useState(false);
-  const [help2, setHelp2] = useState(false);
-  const [help3, setHelp3] = useState(false);
   const [type, setType] = useState(0);
   const [klass, setKlass] = useState(0);
   const [color, setColor] = useState(0);
 
   const price = Math.ceil(CONSTS[klass].init + (length * CONSTS[klass].cost));
+
+  const onClickCalc = () => {
+    setDialogOpenCalc(!dialogOpenCalc);
+    trigger('clacResp');
+  }
 
   return (<div className={classes.root}>
     <Grid container justify='center' alignItems='center'> 
@@ -433,7 +447,7 @@ export const DesktopFour = () => {
         </Grid>
       </Grid>
       <Grid item md={12} style={{padding: '64px 0', textAlign: 'center'}}>
-        <ContainedButton>
+        <ContainedButton onClick={onClickCalc}>
           <div>
             <div>Получить расчет</div>
           </div>

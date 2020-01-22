@@ -56,17 +56,17 @@ export const DesktopFive = () => {
               <Grid item style={{padding: '48px 0', position: 'relation'}}>
                 <div style={{}}>
                   <Typography variant='h2' component='h1' paragraph style={{color: '#fff'}}>Гарантия</Typography>
-                  <Typography variant='body1' component='div' gutterBottom style={{color: '#b4b4b4'}}>
+                  <Typography variant='body1' component='div' gutterBottom style={{color: '#fff'}}>
                     Мы настолько уверены в качестве своего продукта, что даем<br />письменную гарантию 
                     качества на 5 лет на сами изделия<br />и на монтаж. У нас вежливые и чистоплотные 
                     монтажники,<br />которые не мусорят.
                   </Typography>
-                  <Typography variant='body1' component='div' gutterBottom style={{color: '#b4b4b4'}}>
+                  <Typography variant='body1' component='div' gutterBottom style={{color: '#fff'}}>
                     Мы также обеспечим для Вас гарантийное и постгарантийное<br />обслуживание. А главное, 
                     мы понимаем, что только довольный<br />заказчик может принести реальную прибыль! Поэтому 
                     мы<br />создаем удобство готовки на кухне, что влияет на вкус блюд<br />и на желание готовить.
                   </Typography>
-                  <Typography variant='body1' component='div' gutterBottom style={{color: '#b4b4b4'}}>
+                  <Typography variant='body1' component='div' gutterBottom style={{color: '#fff'}}>
                     И вся наша работа направлена именно на это. Вы будете<br />приходить к нам снова и 
                     приведете друзей и знакомых.
                   </Typography>

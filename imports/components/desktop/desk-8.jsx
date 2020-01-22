@@ -132,11 +132,11 @@ export const DesktopEight = () => {
                 <Typography variant='h3' component='h2' gutterBottom style={{color: '#fff', position: 'relative'}}>
                     <FiberManualRecordRounded className={classes.dotIcon} />Светодиодны высокой цветопередачи
                   </Typography>
-                  <Typography variant='body1' component='div' gutterBottom style={{color: '#b4b4b4'}}>
+                  <Typography variant='body1' component='div' gutterBottom style={{color: '#fff'}}>
                     Мы применяем светодиоды высокой цветопередачи,<br />что делает свет приближенным к 
                     естественному<br />солнечному цвету, и Вы видите предметы привычно,<br />как и при дневном свете.
                   </Typography>
-                  <Typography variant='body1' component='div' gutterBottom style={{color: '#b4b4b4'}}>
+                  <Typography variant='body1' component='div' gutterBottom style={{color: '#fff'}}>
                     Рабочая зона столешницы при этом освещается<br />равномерно для комфортного приготовления<br />пищи.
                   </Typography>
                 </div>
@@ -144,7 +144,7 @@ export const DesktopEight = () => {
                   <Typography variant='h3' component='h2' gutterBottom style={{color: '#fff', position: 'relative'}}>
                     <FiberManualRecordRounded className={classes.dotIcon} />Блок питания
                   </Typography>
-                  <Typography variant='body1' component='div' style={{color: '#b4b4b4'}}>
+                  <Typography variant='body1' component='div' style={{color: '#fff'}}>
                     Блок питания Fulogy очень компактный, что позволяет<br />проводить скрытый 
                     монтаж. При этом он не шумит,<br />прослужит долго, потому что мы не экономим на<br />материалах.
                   </Typography>
