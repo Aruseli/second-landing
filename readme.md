@@ -1,5 +1,3 @@
-# https://second-landind.herokuapp.com/podsvetka-dlya-kuhni-1
-
 # react-web-app
 
 - [x] draft of auth
