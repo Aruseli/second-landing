@@ -21,7 +21,7 @@ module.exports = withPlugins(
     ],
     [optimizedImages],
     [withTM, {
-      transpileModules: ['deepcase-storybook']
+      // transpileModules: ['deepcase-storybook']
     }],
   ],
   {
